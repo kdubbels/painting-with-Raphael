@@ -1,0 +1,58 @@
+<html>
+<head>
+<script src="raphael-min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+window.onload = function () {
+var paper = Raphael(0, 0, 1000, 1000);
+
+var colors = paper.set();
+
+for (var c = 0; c < 17; c += 1) {
+    for (var i = 0; i < 3; i += 1) {
+        colors.push(paper.rect(10 + c * 20, 10 + i * 20, 20, 20)
+            .attr({
+                fill: Raphael.hsl(c / 16, 1, (i+1)/4),
+                stroke: "#CCC"
+            })
+        );
+    }
+}
+
+var selected_color = "red";
+
+var selected_color_box = paper.rect(10 + 17 * 20, 10, 60, 60).attr({
+    fill: "red",
+    stroke: "#CCC"    
+});
+
+colors.click(function() {
+    selected_color = this.attr("fill");
+    colors.attr("stroke", "#CCC");
+    this.attr("stroke", "#000").attr("stroke-width", 2).toFront();
+    selected_color_box.attr("fill", selected_color);
+    
+});
+
+function person(rsr) { rsr.setStart();
+
+var mondrian = paper.path("M84.3,23.2V22H71.5V10.9h3.6V9.7H55.1V1H54v8.8H43.5V1h-1.2v8.8V11v11.1H32V1h-1.2v21h-9.9v1.2h9.9V44H15.9 v1.2h14.9v11.5h-9.5v1.2h9.4v6.6h1.2V45.2h22v22h1.2V56.6h4.4v2.3h1.2v-2.3h9.8v7.9h1.2v-7.9h10.7v-1.2H71.5V39.2h7.7h1.2h1.9V38 h-1.9V23.2C80.4,23.2,84.3,23.2,84.3,23.2z M70.3,10.9V22H55.1V10.9H70.3z M43.5,10.9H54V22H43.5V10.9z M32,43.9V23.2h22V44 L32,43.9L32,43.9z M59.4,43.9h-4.3v-4.8h4.3V43.9z M55.1,55.4V45.1h4.3v10.3H55.1z M70.3,55.4h-9.7V39.2h9.8L70.3,55.4L70.3,55.4z M79.3,38H55.1V23.2h24.1V38z")
+.attr({"clip-rule": 'evenodd',"fill-rule": 'evenodd',stroke: '#000000',"stroke-miterlimit": '10',"stroke-width": '0.04',parent: 'group_a','stroke-opacity': '1','fill': '#000000'}).data('id', 'path_d');
+var box1 = paper.rect(32,23.2,22,20.8)
+.attr({"clip-rule": 'evenodd',"fill-rule": 'evenodd',stroke: '#000000','fill': '#000000'}).data('id', 'path_d');
+var box2 = paper.rect(55.1,23.2,24.1,14.8)
+.attr({"clip-rule": 'evenodd',"fill-rule": 'evenodd',stroke: '#000000','fill': '#000000'}).data('id', 'path_d')              
+return rsr.setFinish(); }
+
+var scientist = person(paper).attr("transform", "T50,200,s3");
+
+scientist.click(function() {
+   // remember, "this" refers to the individual element clicked, not the whole scientist
+   this.attr("fill", selected_color);    
+});}
+</script>
+
+
+</head>
+<body>
+</body>
+</html>
