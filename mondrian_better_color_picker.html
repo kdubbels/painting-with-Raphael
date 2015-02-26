@@ -1,12 +1,23 @@
 <html>
 <head>
+    <title>Paint a Mondrian!</title>
+
+
+<style>
+ #canvas {
+                height: 630px;
+                width: 500px;
+            
+}
+</style>
+
 <script src="raphael-min.js" type="text/javascript" charset="utf-8"></script>
-<script src="colorpicker.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="https://raw.githubusercontent.com/DmitryBaranovskiy/raphael/master/raphael-min.js" type="text/javascript" charset="utf-8"></script> -->
 <script>
 window.onload = function () {
 
 
-var paper = Raphael(0, 0,1000, 1000);
+var paper = Raphael("canvas");
 
 var colors = paper.set();
 
@@ -21,10 +32,10 @@ for (var c = 0; c < 17; c += 1) {
     }
 }
 
-var selected_color = "red";
+var selected_color = "yellow";
 
 var selected_color_box = paper.rect(10 + 17 * 20, 10, 60, 60).attr({
-    fill: "red",
+    fill: "yellow",
     stroke: "#FFF"    
 });
 
@@ -43,7 +54,7 @@ var mondrian = paper.path("M378,303 L378,352 L400,352 L400,364 L378,364 L378,400
 .attr({'fill': '#000000'}).data('id', 'path_d');
 
 
-function person(rsr) { rsr.setStart();
+function painting(rsr) { rsr.setStart();
 
 var box1 = paper.rect(0,0,87,120)
 .attr({"clip-rule": 'evenodd',"fill-rule": 'evenodd','fill': '#FFFFFF'}).data('id', 'path_d')
@@ -63,16 +74,27 @@ var box7 = paper.rect(0,303,87,97)
 
 return rsr.setFinish(); }
 
-var scientist = person(paper).attr("transform", "T50,200");
+var mondrian = painting(paper).attr("transform", "T50,200");
 
-scientist.click(function() {
+mondrian.click(function() {
    // remember, "this" refers to the individual element clicked, not the whole scientist
    this.attr("fill", selected_color);    
-});}
+});
+mondrian.dblclick(function() {
+   // remember, "this" refers to the individual element clicked, not the whole scientist
+   this.attr("fill", '#FFFFFF');    
+});
+}
+
+
 </script>
-
-
-</head>
+    </head>
 <body>
+    <div id="instructions">
+<p>Use the color picker to select a color.<br>To return the canvas to white, double click on the colored area.</p>
+</div>
+<div id="canvas">
+</div>
+
 </body>
 </html>
